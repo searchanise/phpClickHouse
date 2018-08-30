@@ -31,7 +31,7 @@ class FormatLine
      * @param array $row
      * @return string
      */
-    public static function Insert(Array $row)
+    public static function Insert($row)
     {
         return self::strictQuote('Insert')->quoteRow($row);
     }
@@ -42,7 +42,7 @@ class FormatLine
      * @param array $row
      * @return string
      */
-    public static function TSV(Array $row)
+    public static function TSV($row)
     {
         return self::strictQuote('TSV')->quoteRow($row);
     }
@@ -53,7 +53,7 @@ class FormatLine
      * @param array $row
      * @return string
      */
-    public static function CSV(Array $row)
+    public static function CSV($row)
     {
         return self::strictQuote('CSV')->quoteRow($row);
     }

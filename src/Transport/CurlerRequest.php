@@ -631,7 +631,7 @@ class CurlerRequest
         return ($this->resp ? true : false);
     }
 
-    public function setResponse(CurlerResponse $response)
+    public function setResponse($response)
     {
         $this->resp = $response;
     }
@@ -649,7 +649,7 @@ class CurlerRequest
      * @param callable $callback
      * @throws \Exception
      */
-    public function setFunctionProgress(callable $callback)
+    public function setFunctionProgress($callback)
     {
         if (!is_callable($callback)) {
             throw new \Exception('setFunctionProgress not is_callable');

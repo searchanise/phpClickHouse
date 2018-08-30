@@ -28,7 +28,7 @@ class Bindings implements Degeneration
     /**
      * @param array $bindings
      */
-    public function bindParams(array $bindings)
+    public function bindParams($bindings)
     {
         $this->bindings = [];
         foreach ($bindings as $column => $value) {

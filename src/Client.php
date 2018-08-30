@@ -140,7 +140,7 @@ class Client
      * @param Query\Degeneration $degeneration
      * @return bool
      */
-    public function addQueryDegeneration(Query\Degeneration $degeneration)
+    public function addQueryDegeneration($degeneration)
     {
         return $this->_transport->addQueryDegeneration($degeneration);
     }
@@ -545,7 +545,7 @@ class Client
       * @param array $values - array column_name => value (if we insert one row) or array list column_name => value if we insert many lines
       * @return array - list of arrays - 0 => fields, 1 => list of value arrays for insertion
       */
-    public function prepareInsertAssocBulk(array $values)
+    public function prepareInsertAssocBulk($values)
     {
         if (isset($values[0]) && is_array($values[0])) { //случай, когда много строк вставляется
             $preparedFields = array_keys($values[0]);
@@ -574,7 +574,7 @@ class Client
      * @throws QueryException
      * @throws Exception\TransportException
      */
-    public function insertAssocBulk($table, array $values)
+    public function insertAssocBulk($table, $values)
     {
         list($columns, $vals) = $this->prepareInsertAssocBulk($values);
         return $this->insert($table, $vals, $columns);
@@ -693,7 +693,7 @@ class Client
      * @return Statement
      * @throws Exception\TransportException
      */
-    public function streamWrite(Stream $stream,$sql,$bind=[])
+    public function streamWrite($stream,$sql,$bind=[])
     {
         if ($this->getCountPendingQueue() > 0) {
             throw new QueryException('Queue must be empty, before streamWrite');
@@ -711,7 +711,7 @@ class Client
      * @return Statement
      * @throws Exception\TransportException
      */
-    public function streamRead(Stream $streamRead,$sql,$bind=[])
+    public function streamRead($streamRead,$sql,$bind=[])
     {
         if ($this->getCountPendingQueue() > 0) {
             throw new QueryException('Queue must be empty, before streamWrite');
@@ -785,14 +785,14 @@ class Client
             min(min_date) as min_date,
             max(max_date) as max_date
             FROM system.tables
-            ANY LEFT JOIN 
+            ANY LEFT JOIN
             (
             SELECT table,database,
                         formatReadableSize(sum(bytes)) as size,
                         sum(bytes) as sizebytes,
                         min(min_date) as min_date,
                         max(max_date) as max_date
-                        FROM system.parts 
+                        FROM system.parts
                         WHERE active AND database=:database
                         GROUP BY table,database
             ) USING ( table,database )
@@ -824,7 +824,7 @@ class Client
     {
         return $this->select('
             SELECT *
-            FROM system.tables 
+            FROM system.tables
             WHERE name=\''.$table . '\' AND database=\'' . $database . '\''
         )->rowsAsTree('name');
     }
@@ -843,8 +843,8 @@ class Client
     {
         return $this->select('
             SELECT *
-            FROM system.parts 
-            WHERE like(table,\'%' . $table . '%\') AND database=\'' . $this->settings()->getDatabase() . '\' 
+            FROM system.parts
+            WHERE like(table,\'%' . $table . '%\') AND database=\'' . $this->settings()->getDatabase() . '\'
             ORDER BY max_date ' . ($limit > 0 ? ' LIMIT ' . intval($limit) : '')
         )->rowsAsTree('name');
     }
@@ -905,7 +905,7 @@ class Client
      *
      * @throws Exception\TransportException
      */
-    public function getServerVersion() : string
+    public function getServerVersion()
     {
         return (string) $this->select('SELECT version() as version')->fetchOne('version');
     }

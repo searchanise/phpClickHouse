@@ -14,7 +14,7 @@ class Conditions implements Degeneration
     /**
      * @param array $bindings
      */
-    public function bindParams(array $bindings)
+    public function bindParams($bindings)
     {
         foreach ($bindings as $column => $value) {
             $this->bindings[$column] = $value;

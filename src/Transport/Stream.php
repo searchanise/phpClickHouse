@@ -58,7 +58,7 @@ abstract class Stream implements IStream
     /**
      * @param callable $callable
      */
-    public function closure(callable $callable)
+    public function closure($callable)
     {
         $this->callable=$callable;
     }

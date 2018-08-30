@@ -27,7 +27,7 @@ class Settings
      * Settings constructor.
      * @param Http $client
      */
-    public function __construct(Http $client)
+    public function __construct($client)
     {
         $default = [
             'extremes'                => false,

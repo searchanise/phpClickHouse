@@ -31,7 +31,7 @@ class StreamInsert
      * @param CurlerRequest $request
      * @param CurlerRolling|null $curlerRolling
      */
-    public function __construct($source, CurlerRequest $request, $curlerRolling=null)
+    public function __construct($source, $request, $curlerRolling=null)
     {
         if (!is_resource($source)) {
             throw new \InvalidArgumentException('Argument $source must be resource');

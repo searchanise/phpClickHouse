@@ -95,7 +95,7 @@ class CurlerRolling
      * @return bool
      * @throws TransportException
      */
-    public function addQueLoop(CurlerRequest $req, $checkMultiAdd = true, $force = false)
+    public function addQueLoop($req, $checkMultiAdd = true, $force = false)
     {
         $id = $req->getId();
 
@@ -254,7 +254,7 @@ class CurlerRolling
      * @return mixed
      * @throws TransportException
      */
-    public function execOne(CurlerRequest $request, $auto_close = false)
+    public function execOne($request, $auto_close = false)
     {
         $h = $request->handle();
         curl_exec($h);

@@ -81,7 +81,7 @@ class Statement
     private $statistics = null;
 
 
-    public function __construct(CurlerRequest $request)
+    public function __construct($request)
     {
         $this->_request = $request;
         $this->format = $this->_request->getRequestExtendedInfo('format');

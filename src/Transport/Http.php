@@ -208,7 +208,7 @@ class Http
      * @return CurlerRequest
      * @throws \ClickHouseDB\Exception\TransportException
      */
-    private function makeRequest(Query $query, $urlParams = [], $query_as_string = false)
+    private function makeRequest($query, $urlParams = [], $query_as_string = false)
     {
         $sql = $query->toSql();
 
@@ -293,7 +293,7 @@ class Http
         $request = $this->newRequest($extendinfo);
         $request->url($url);
 
-        $request->setCallbackFunction(function(CurlerRequest $request) {
+        $request->setCallbackFunction(function($request) {
             $handle = $request->getInfileHandle();
             if (is_resource($handle)) {
                 fclose($handle);
@@ -384,7 +384,7 @@ class Http
      * @return CurlerRequest
      * @throws \Exception
      */
-    public function getRequestRead(Query $query, $whereInFile = null, $writeToFile = null)
+    public function getRequestRead($query, $whereInFile = null, $writeToFile = null)
     {
         $urlParams = ['readonly' => 1];
         $query_as_string = false;
@@ -432,7 +432,7 @@ class Http
                 }
 
 
-                $request->setResultFileHandle($fout, $isGz)->setCallbackFunction(function(CurlerRequest $request) {
+                $request->setResultFileHandle($fout, $isGz)->setCallbackFunction(function($request) {
                     fclose($request->getResultFileHandle());
                 });
             }
@@ -452,7 +452,7 @@ class Http
         return true;
     }
 
-    public function addQueryDegeneration(Degeneration $degeneration)
+    public function addQueryDegeneration($degeneration)
     {
         $this->_query_degenerations[] = $degeneration;
         return true;
@@ -463,7 +463,7 @@ class Http
      * @return CurlerRequest
      * @throws \ClickHouseDB\Exception\TransportException
      */
-    public function getRequestWrite(Query $query)
+    public function getRequestWrite($query)
     {
         $urlParams = ['readonly' => 0];
         return $this->makeRequest($query, $urlParams);
@@ -553,7 +553,7 @@ class Http
      * @throws \ClickHouseDB\Exception\TransportException
      * @throws \Exception
      */
-    public function select($sql, array $bindings = [], $whereInFile = null, $writeToFile = null)
+    public function select($sql, $bindings = [], $whereInFile = null, $writeToFile = null)
     {
         $request = $this->prepareSelect($sql, $bindings, $whereInFile, $writeToFile);
         $this->_curler->execOne($request);
@@ -569,7 +569,7 @@ class Http
      * @throws \ClickHouseDB\Exception\TransportException
      * @throws \Exception
      */
-    public function selectAsync($sql, array $bindings = [], $whereInFile = null, $writeToFile = null)
+    public function selectAsync($sql, $bindings = [], $whereInFile = null, $writeToFile = null)
     {
         $request = $this->prepareSelect($sql, $bindings, $whereInFile, $writeToFile);
         $this->_curler->addQueLoop($request);
@@ -579,7 +579,7 @@ class Http
     /**
      * @param callable $callback
      */
-    public function setProgressFunction(callable $callback)
+    public function setProgressFunction($callback)
     {
         $this->xClickHouseProgress = $callback;
     }
@@ -591,7 +591,7 @@ class Http
      * @return Statement
      * @throws \ClickHouseDB\Exception\TransportException
      */
-    public function write($sql, array $bindings = [], $exception = true)
+    public function write($sql, $bindings = [], $exception = true)
     {
         $request = $this->prepareWrite($sql, $bindings);
         $this->_curler->execOne($request);
@@ -610,7 +610,7 @@ class Http
      * @return Statement
      * @throws \ClickHouseDB\Exception\TransportException
      */
-    private function streaming(Stream $streamRW,CurlerRequest $request)
+    private function streaming($streamRW, $request)
     {
         $callable=$streamRW->getClosure();
         $stream=$streamRW->getStream();
@@ -685,7 +685,7 @@ class Http
      * @return Statement
      * @throws \ClickHouseDB\Exception\TransportException
      */
-    public function streamRead(Stream $streamRead,$sql,$bindings=[])
+    public function streamRead($streamRead,$sql,$bindings=[])
     {
         $sql=$this->prepareQuery($sql,$bindings);
         $request=$this->getRequestRead($sql);
@@ -700,7 +700,7 @@ class Http
      * @return Statement
      * @throws \ClickHouseDB\Exception\TransportException
      */
-    public function streamWrite(Stream $streamWrite,$sql,$bindings=[])
+    public function streamWrite($streamWrite,$sql,$bindings=[])
     {
         $sql=$this->prepareQuery($sql,$bindings);
         $request = $this->writeStreamData($sql);
