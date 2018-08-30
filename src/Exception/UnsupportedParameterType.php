@@ -13,7 +13,7 @@ final class UnsupportedParameterType extends InvalidArgumentException implements
     /**
      * @param mixed $parameter
      */
-    public static function new($parameter)
+    public static function init($parameter)
     {
         return new self(sprintf('Parameter of type "%s" cannot be bound', gettype($parameter)));
     }

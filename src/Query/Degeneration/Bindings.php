@@ -145,7 +145,7 @@ class Bindings implements Degeneration
             return $this->formatStringParameter($this->escapeString($value));
         }
 
-        throw UnsupportedParameterType::new($value);
+        throw UnsupportedParameterType::init($value);
     }
 
     /**
