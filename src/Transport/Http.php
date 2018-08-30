@@ -472,7 +472,7 @@ class Http
     /**
      * @throws TransportException
      */
-    public function ping() : bool
+    public function ping()
     {
         $request = new CurlerRequest();
         $request->url($this->getUri())->verbose(false)->GET()->connectTimeOut($this->getConnectTimeOut());
