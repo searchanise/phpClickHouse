@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace ClickHouseDB\Query\Degeneration;
 
 use ClickHouseDB\Exception\UnsupportedParameterType;
